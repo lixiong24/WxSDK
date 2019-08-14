@@ -109,16 +109,8 @@ namespace WxSDK.WxPay
 			else
 			{
 				//构造网页授权获取code的URL
-				string scheme = page.Request.Url.Scheme;
-				string host = page.Request.Url.Host;
-				string port = page.Request.Url.Port.ToString();
-				if (!string.IsNullOrEmpty(port))
-				{
-					port = (port == "80") ? "" : ":" + port;
-				}
-				string path = page.Request.Path;
-				string redirect_uri = HttpUtility.UrlEncode(scheme + "://" + host + path);
-				//string redirect_uri = HttpUtility.UrlEncode(page.Request.Url.ToString());
+				//取提交页面的完整URL，包括请求参数
+				string redirect_uri = HttpUtility.UrlEncode(page.Request.Url.ToString());
 				WxData data = new WxData();
 				data.SetValue("appid", WxConfig.APPID);
 				data.SetValue("redirect_uri", redirect_uri);
