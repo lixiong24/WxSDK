@@ -164,21 +164,33 @@ namespace WxSDK.WxPay
 				Log.Debug(this.GetType().ToString(), "通过code换取网页授权(GetOpenidAndAccessTokenFromCode) response数据 : " + result);
 
 				JsonData jd = JsonMapper.ToObject(result);
-				if (!string.IsNullOrEmpty((string)jd["access_token"]))
-				{
-					//保存access_token，用于收货地址获取
-					access_token = (string)jd["access_token"];
-					//获取用户openid
-					openid = (string)jd["openid"];
 
-					Log.Debug(this.GetType().ToString(), "Get openid : " + openid);
-					Log.Debug(this.GetType().ToString(), "Get access_token : " + access_token);
+				string str_access_token = "";
+				try
+				{
+					str_access_token = (string)jd["access_token"];
+					if (!string.IsNullOrEmpty(str_access_token))
+					{
+						//保存access_token，用于收货地址获取
+						access_token = (string)jd["access_token"];
+						//获取用户openid
+						openid = (string)jd["openid"];
+
+						Log.Debug(this.GetType().ToString(), "Get openid : " + openid);
+						Log.Debug(this.GetType().ToString(), "Get access_token : " + access_token);
+					}
+					else
+					{
+						Log.Error(this.GetType().ToString(), "通过code换取网页授权失败 errcode : " + (string)jd["errcode"]);
+						Log.Error(this.GetType().ToString(), "通过code换取网页授权失败 errmsg : " + (string)jd["errmsg"]);
+					}
 				}
-				else
+				catch
 				{
 					Log.Error(this.GetType().ToString(), "通过code换取网页授权失败 errcode : " + (string)jd["errcode"]);
 					Log.Error(this.GetType().ToString(), "通过code换取网页授权失败 errmsg : " + (string)jd["errmsg"]);
 				}
+				
 			}
 			catch (Exception ex)
 			{
