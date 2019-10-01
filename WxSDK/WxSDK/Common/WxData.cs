@@ -206,7 +206,7 @@ namespace WxSDK.Common
 		}
 
 		/// <summary>
-		/// 生成签名，详见签名生成算法。返回值为签名, sign字段不参加签名。
+		/// 生成支付签名，详见签名生成算法。返回值为签名, sign字段不参加签名。
 		/// </summary>
 		/// <returns></returns>
 		public string MakeSign()
@@ -230,7 +230,7 @@ namespace WxSDK.Common
 		}
 
 		/// <summary>
-		/// 检测签名是否正确
+		/// 检测支付签名是否正确
 		/// </summary>
 		/// <returns></returns>
 		public bool CheckSign()
@@ -262,5 +262,6 @@ namespace WxSDK.Common
 			Log.Error(this.GetType().ToString(), "WxData签名验证错误!");
 			throw new WxException("WxData签名验证错误!");
 		}
+
 	}
 }
